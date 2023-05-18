@@ -1,9 +1,8 @@
 pipeline {
-    agent anytools { 
-      maven 'maven3.8.3' 
-      jdk 'java-11' 
+    agent any 
+    environment{
+	PATH = /opt/maven/bin:$PATH
     }
-
     stages {
         stage('Checkout') {
             steps {
