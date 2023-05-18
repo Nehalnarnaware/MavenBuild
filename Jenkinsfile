@@ -18,8 +18,8 @@ pipeline {
 	 stage('Deploy to Tomcat') {
             environment {
                 TOMCAT_URL = 'http://18.237.6.225:8080/'  // Replace with your Tomcat server URL
-                TOMCAT_USERNAME = credentials('tomcat')  // Replace with your Tomcat username
-                TOMCAT_PASSWORD = credentials('Nehal@123')  // Use Jenkins credentials for password
+                TOMCAT_USERNAME = ('tomcat')  // Replace with your Tomcat username
+                TOMCAT_PASSWORD = ('Nehal@123')  // Use Jenkins credentials for password
             }
             steps {
                 script {
