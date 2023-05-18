@@ -1,11 +1,11 @@
 
 
 	
-node('master'){	
-	stage('Code Checkout'){
-		checkout scm
+
 		
-	}
+pipeline{
+  agent any
+     stages{
 	stage('Build Automation'){
 		sh "mvn clean install -Dmaven.test.skip=true"
 	}
@@ -20,4 +20,5 @@ node('master'){
 	stage('Code Deployment'){
 		deploy adapters: [tomcat9(credentialsId: 'TomcatCreds', path: '', url: 'http://18.237.6.225:8080/')], contextPath: 'counterwebapp', onFailure: false, war: 'target/*.war'
 	}
+ }
 }
