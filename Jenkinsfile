@@ -20,7 +20,7 @@ pipeline {
                 TOMCAT_PASSWORD = credentials('Nehal@123')  // Use Jenkins credentials for password
             }
             steps {
-                sh "curl --upload-file target/*.war --user $TOMCAT_USERNAME:$TOMCAT_PASSWORD $TOMCAT_URL/manager/
+                sh "curl --upload-file target/*MavenBuild.war --user $TOMCAT_USERNAME:$TOMCAT_PASSWORD $TOMCAT_URL/manager-gui/
 	 }
 	}	 
     }	   
