@@ -1,24 +1,27 @@
+pipeline {
+    agent any
 
-
-	
-
-		
-pipeline{
-  agent any
-     stages{
-	stage('Build Automation'){
-		sh "mvn clean install -Dmaven.test.skip=true"
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/your-repo/java-maven-project.git'
+            }
+        
 	}
-	
-	stage('Test Cases Execution'){
-		sh "mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent -Pcoverage-per-test"
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
 	}
-	stage('Archive Artifacts'){
-		archiveArtifacts artifacts= 'target/*.war'
-	}
-	
-	stage('Code Deployment'){
-		deploy adapters: [tomcat9(credentialsId: 'TomcatCreds', path: '', url: 'http://18.237.6.225:8080/')], contextPath: 'counterwebapp', onFailure: false, war: 'target/*.war'
-	}
- }
-}
+	 stage('Deploy to Tomcat') {
+            environment {
+                TOMCAT_URL = 'http://18.237.6.225:8080/'  // Replace with your Tomcat server URL
+                TOMCAT_USERNAME = 'tomcat'  // Replace with your Tomcat username
+                TOMCAT_PASSWORD = credentials('Nehal@123')  // Use Jenkins credentials for password
+            }
+            steps {
+                sh "curl --upload-file target/myapp.war --user $TOMCAT_USERNAME:$TOMCAT_PASSWORD $TOMCAT_URL/manager/
+	 }
+	}	 
+    }	   
+}	
