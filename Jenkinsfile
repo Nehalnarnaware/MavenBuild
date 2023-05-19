@@ -23,7 +23,7 @@ pipeline {
             }
             steps {
                 script {
-		   sh "curl -u $TOMCAT_USERNAME:$TOMCAT_PASSWORD -T MavenBuild/target/MavenBuild.war $TOMCAT_URL/manager/text/deploy?path=/MavenBuild"
+		   sh "curl -u $TOMCAT_USERNAME:$TOMCAT_PASSWORD -T target/*.war $TOMCAT_URL/manager/text/deploy?path=/MavenBuild.war"
                    
           }
 	}	 
